@@ -6,6 +6,7 @@ from sympy import *
 class Calculator():
     def __init__(self, main_window):
         self.main_window = main_window
+        self.main_window.bind("<Key>",self.keyboard_entry)
         self.content_string = ""
         self.is_negative = False
         self.result=""
@@ -190,9 +191,27 @@ class Calculator():
         else:
             self.check_before_solve()
             self.result = simplify(self.content_string)
+            self.result=self.result.evalf()
+            self.result="{:g}".format(float(self.result))
             self.content_string = self.content_string + " = " + str(self.result)
             self.is_result_calculated = True
             self.content_refresher()
+
+    def keyboard_entry(self,event):
+        key=event.char
+        keysym=event.keysym
+        if key in ['0','1','2','3','4','5','6','7','8','9','.','+','-','/','*']:
+            self.add_content(key)
+        elif key =='=':
+            self.solve()
+        elif keysym=="Return":
+            self.solve()
+        elif keysym=="BackSpace":
+            self.delete()
+        elif keysym=="Escape":
+            self.all_clear()
+        else:
+            pass
 
 window = Tk()
 window.geometry("350x500")
