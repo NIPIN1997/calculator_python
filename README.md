@@ -15,6 +15,6 @@ Features
 
 Technologies Used
 
-- **Python 3**
+- Python 3
 - Tkinter – for building the GUI
 - SymPy – for safe and accurate math expression parsing and evaluation
